@@ -8,7 +8,7 @@ Castle is still a WIP.
 
 ## Contributing
 
-I am using uv to develop Castle. If you would like to contribute, please: 
+I am using [uv](https://docs.astral.sh/uv/) to develop Castle. If you would like to contribute, please: 
 
 1. Clone the Git repository
 2. Create a new branch with your changes
