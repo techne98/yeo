@@ -39,7 +39,7 @@ func main() {
 }
 
 func createConfigFile() {
-	file, err := os.Create("castle.yml")
+	file, err := os.Create("castle.json")
 
 	if err != nil {
 		log.Fatal(err)
