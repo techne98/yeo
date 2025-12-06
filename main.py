@@ -5,6 +5,8 @@ from pathlib import Path
 
 
 def create_config_file():
+    # TODO: Possibly improve this to add an empty starting structure
+    # to add config file paths.
     path = Path("castle.json")
     path.touch()
 
