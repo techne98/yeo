@@ -1,4 +1,5 @@
 import argparse
+import hashlib
 import json
 import shutil
 from pathlib import Path
@@ -26,22 +27,64 @@ def create_config_file():
     print("yeo.json created.")
 
 
-def copy_files():
+def get_file_hash(file_path):
+    """Calculate SHA256 hash of a file."""
+    sha256_hash = hashlib.sha256()
+    with open(file_path, "rb") as f:
+        for byte_block in iter(lambda: f.read(4096), b""):
+            sha256_hash.update(byte_block)
+    return sha256_hash.hexdigest()
+
+
+def sync():
+    """Check if current directory files are in sync with home directory."""
+    if not Path("yeo.json").exists():
+        print("yeo.json not found. Run 'yeo init' first.")
+        return
+
     with open("yeo.json", "r") as f:
         config_dict = json.load(f)
 
     config_files = config_dict["paths"]
+    synced_files = []
+    out_of_sync_files = []
+    missing_files = []
 
     for file in config_files:
         src_file = Path.home() / file
         dest_file = Path.cwd() / Path(file)
 
+        if not src_file.exists():
+            print(f"Source file not found: {src_file}")
+            continue
+
+        if not dest_file.exists():
+            missing_files.append(file)
+            print(f"Missing (will copy): {file}")
+        else:
+            src_hash = get_file_hash(src_file)
+            dest_hash = get_file_hash(dest_file)
+
+            if src_hash == dest_hash:
+                synced_files.append(file)
+                print(f"In sync: {file}")
+            else:
+                out_of_sync_files.append(file)
+                print(f"Out of sync (will copy): {file}")
+
+    files_to_copy = missing_files + out_of_sync_files
+    for file in files_to_copy:
+        src_file = Path.home() / file
+        dest_file = Path.cwd() / Path(file)
         dest_file.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(src_file, dest_file)
 
-
-def sync():
-    pass
+    print("\nSummary:")
+    print(f"In sync: {len(synced_files)}")
+    print(f"Out of sync: {len(out_of_sync_files)}")
+    print(f"Missing: {len(missing_files)}")
+    if files_to_copy:
+        print(f"Copied {len(files_to_copy)} file(s)")
 
 
 def main():
@@ -56,7 +99,7 @@ def main():
     if args.command == "init":
         create_config_file()
     elif args.command == "sync":
-        copy_files()
+        sync()
 
 
 if __name__ == "__main__":
