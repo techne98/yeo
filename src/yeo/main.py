@@ -25,6 +25,8 @@ def create_config_file():
             f,
             indent=2,
         )
+        f.write("\n")
+
     print("yeo.json created.")
 
 
