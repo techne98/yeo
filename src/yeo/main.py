@@ -5,6 +5,16 @@ import shutil
 from pathlib import Path
 
 
+DEFAULT_CONFIG = {
+        "overwrite": False,
+        "paths": [
+            ".config/nvim/init.lua",
+            ".config/alacritty/alacritty.toml",
+            ".zshrc",
+        ]
+},
+
+
 def create_config_file():
     if Path("yeo.json").exists():
         response = input("yeo.json already exists. Overwrite? (y/n): ")
@@ -13,18 +23,7 @@ def create_config_file():
             return
 
     with open("yeo.json", "w") as f:
-        json.dump(
-            {
-                "overwrite": False,
-                "paths": [
-                    ".config/nvim/init.lua",
-                    ".config/alacritty/alacritty.toml",
-                    ".zshrc",
-                ]
-            },
-            f,
-            indent=2,
-        )
+        json.dump(DEFAULT_CONFIG, f, indent=2)
         f.write("\n")
 
     print("yeo.json created.")
