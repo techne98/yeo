@@ -49,6 +49,14 @@ def get_file_hash(file_path):
     return sha256_hash.hexdigest()
 
 
+def copy_files(files):
+    for file in files:
+        src_file = Path.home() / file
+        dest_file = Path.cwd() / Path(file)
+        dest_file.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(src_file, dest_file)
+
+
 def sync():
     """Check if current directory files are in sync with home directory."""
     if not Path("yeo.json").exists():
@@ -85,11 +93,7 @@ def sync():
                 print(f"Out of sync (will copy): {file}")
 
     files_to_copy = missing_files + out_of_sync_files
-    for file in files_to_copy:
-        src_file = Path.home() / file
-        dest_file = Path.cwd() / Path(file)
-        dest_file.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy(src_file, dest_file)
+    copy_files(files_to_copy)
 
     print("\nSummary:")
     print(f"In sync: {len(synced_files)}")
