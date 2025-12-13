@@ -92,7 +92,7 @@ def main():
     subparsers = parser.add_subparsers(dest="command")
 
     subparsers.add_parser("init", help="Create a yeo.json file")
-    subparsers.add_parser("sync", help="Sync your dotfiles to the current directory")
+    subparsers.add_parser("sync", help="Sync dotfiles to the current directory")
 
     args = parser.parse_args()
 
