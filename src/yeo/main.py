@@ -12,7 +12,7 @@ DEFAULT_CONFIG = {
             ".config/alacritty/alacritty.toml",
             ".zshrc",
         ]
-},
+}
 
 
 def create_config_file():
