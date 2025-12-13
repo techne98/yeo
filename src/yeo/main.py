@@ -72,7 +72,7 @@ def sync():
 
     for file in config_files:
         src_file = Path.home() / file
-        dest_file = Path.cwd() / Path(file)
+        dest_file = Path.cwd() / file
 
         if not src_file.exists():
             print(f"Source file not found: {src_file}")
