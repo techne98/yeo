@@ -15,6 +15,12 @@ DEFAULT_CONFIG = {
 }
 
 
+def load_config():
+    with open("yeo.json", "r", encoding="utf-8") as f:
+        config = json.load(f)
+    return config
+
+
 def create_default_config():
     with open("yeo.json", "w") as f:
         json.dump(DEFAULT_CONFIG, f, indent=2)
@@ -26,8 +32,7 @@ def init():
     if not Path("yeo.json").exists():
         create_default_config()
     else:
-        with open("yeo.json", "r", encoding="utf-8") as f:
-            config = json.load(f)
+        config = load_config()
         if config["overwrite"] is True:
             create_default_config()
             print("Overwritten config with default configuration file.")
@@ -50,10 +55,9 @@ def sync():
         print("yeo.json not found. Run 'yeo init' first.")
         return
 
-    with open("yeo.json", "r") as f:
-        config_dict = json.load(f)
+    config = load_config()
 
-    config_files = config_dict["paths"]
+    config_files = config["paths"]
     synced_files = []
     out_of_sync_files = []
     missing_files = []
