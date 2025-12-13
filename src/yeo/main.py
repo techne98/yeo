@@ -22,7 +22,7 @@ def create_default_config():
     print("yeo.json created.")
 
 
-def create_config_file():
+def init():
     if not Path("yeo.json").exists():
         create_default_config()
     else:
@@ -105,7 +105,7 @@ def main():
     args = parser.parse_args()
 
     if args.command == "init":
-        create_config_file()
+        init()
     elif args.command == "sync":
         sync()
 
