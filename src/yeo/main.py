@@ -15,6 +15,7 @@ def create_config_file():
     with open("yeo.json", "w") as f:
         json.dump(
             {
+                "overwrite": False,
                 "paths": [
                     ".config/nvim/init.lua",
                     ".config/alacritty/alacritty.toml",
