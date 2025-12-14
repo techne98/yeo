@@ -2,7 +2,9 @@
 
 https://github.com/user-attachments/assets/7d1d95fe-e0be-482b-b265-462f2e0cd696
 
-Yeo is a declarative dotfiles snapshot tool. Yeo allows you to copy your dotfiles, or any set of specified files, into a different directory and manually keep them in sync by running the `sync` command. Your dotfiles snapshot can then be used with a VCS, uploaded to GitHub, etc. 
+Yeo is a declarative dotfiles snapshot tool built in Python with zero third-party dependencies.
+
+Yeo allows you to copy your dotfiles, or any set of specified files, into a different directory and keep them in sync by running the `sync` command. Your dotfiles snapshot can then be used with a VCS, uploaded to GitHub, etc.
 
 ## Using Yeo
 
